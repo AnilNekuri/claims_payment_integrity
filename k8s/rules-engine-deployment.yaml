@@ -3,21 +3,38 @@ kind: Deployment
 metadata:
   name: rules-engine
   namespace: claims-integrity
+  labels:
+    app.kubernetes.io/name: rules-engine
+    app.kubernetes.io/part-of: claims-payment-integrity-poc
+    app.kubernetes.io/component: consumer
+  annotations:
+    image-source: "replace with terraform output rules_engine_ecr_repository_url plus image tag"
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: rules-engine
+      app.kubernetes.io/name: rules-engine
   template:
     metadata:
       labels:
-        app: rules-engine
+        app.kubernetes.io/name: rules-engine
+        app.kubernetes.io/part-of: claims-payment-integrity-poc
+        app.kubernetes.io/component: consumer
     spec:
+      terminationGracePeriodSeconds: 30
       containers:
         - name: rules-engine
-          image: replace-with-ecr-rules-engine-image
+          image: "replace-with-terraform-output-rules_engine_ecr_repository_url:latest"
+          imagePullPolicy: Always
           envFrom:
             - configMapRef:
                 name: claims-integrity-config
             - secretRef:
                 name: claims-integrity-secrets
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi

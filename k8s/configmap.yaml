@@ -3,6 +3,9 @@ kind: ConfigMap
 metadata:
   name: claims-integrity-config
   namespace: claims-integrity
+  labels:
+    app.kubernetes.io/name: claims-integrity
+    app.kubernetes.io/part-of: claims-payment-integrity-poc
 data:
   ENVIRONMENT: dev
   KAFKA_TOPIC: claim-events

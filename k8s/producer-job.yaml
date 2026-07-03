@@ -3,16 +3,37 @@ kind: Job
 metadata:
   name: claim-producer
   namespace: claims-integrity
+  labels:
+    app.kubernetes.io/name: claim-producer
+    app.kubernetes.io/part-of: claims-payment-integrity-poc
+    app.kubernetes.io/component: producer
+  annotations:
+    image-source: "replace with terraform output producer_ecr_repository_url plus image tag"
 spec:
+  ttlSecondsAfterFinished: 3600
   template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: claim-producer
+        app.kubernetes.io/part-of: claims-payment-integrity-poc
+        app.kubernetes.io/component: producer
     spec:
       restartPolicy: Never
       containers:
         - name: claim-producer
-          image: replace-with-ecr-producer-image
+          image: "replace-with-terraform-output-producer_ecr_repository_url:latest"
+          imagePullPolicy: Always
           envFrom:
             - configMapRef:
                 name: claims-integrity-config
             - secretRef:
                 name: claims-integrity-secrets
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
   backoffLimit: 1
+  activeDeadlineSeconds: 300
