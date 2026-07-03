@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rules-engine
+  namespace: claims-integrity
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rules-engine
+  template:
+    metadata:
+      labels:
+        app: rules-engine
+    spec:
+      containers:
+        - name: rules-engine
+          image: replace-with-ecr-rules-engine-image
+          envFrom:
+            - configMapRef:
+                name: claims-integrity-config
+            - secretRef:
+                name: claims-integrity-secrets

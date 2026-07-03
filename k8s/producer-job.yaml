@@ -1,0 +1,18 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: claim-producer
+  namespace: claims-integrity
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: claim-producer
+          image: replace-with-ecr-producer-image
+          envFrom:
+            - configMapRef:
+                name: claims-integrity-config
+            - secretRef:
+                name: claims-integrity-secrets
+  backoffLimit: 1

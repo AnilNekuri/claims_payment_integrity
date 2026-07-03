@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: claims-integrity-config
+  namespace: claims-integrity
+data:
+  ENVIRONMENT: dev
+  KAFKA_TOPIC: claim-events
+  KAFKA_CONSUMER_GROUP: claims-rules-engine
+  RDS_PORT: "5432"
+  RDS_DB_NAME: claims_integrity

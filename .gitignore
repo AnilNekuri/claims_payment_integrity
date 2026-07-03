@@ -1,0 +1,75 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+env/
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+id_rsa*
+id_ed25519*
+*.kubeconfig
+kubeconfig*
+
+# AWS / local credentials
+.aws/
+**/.aws/credentials
+**/.aws/config
+*.tfvars
+*.tfvars.json
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+
+# Kubernetes generated/local files
+k8s/*secret*.yaml
+k8s/*secret*.yml
+!k8s/*secret*.example.yaml
+!k8s/*secret*.example.yml
+*.generated.yaml
+
+# Build artifacts
+dist/
+build/
+*.egg-info/
+
+# Logs and local output
+*.log
+logs/
+tmp/
+temp/
+output/
+data/generated/
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Codex/local agent state
+.agents/
+.codex/
